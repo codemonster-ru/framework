@@ -4,30 +4,30 @@ namespace App\Core\Route;
 
 class RouteConfiguration
 {
-  public string $route;
-  public string $controller;
-  public string $action;
-  public string $name;
-  public string $middleware;
+    public string $route;
+    public string $controller;
+    public string $action;
+    public string $name;
+    public string $middleware;
 
-  public function __construct(string $route, string $controller, string $action)
-  {
-    $this->route = $route;
-    $this->controller = $controller;
-    $this->action = $action;
-  }
+    public function __construct(string $route, string $controller, string $action)
+    {
+        $this->route = $route;
+        $this->controller = $controller;
+        $this->action = $action;
+    }
 
-  public function name(string $name): RouteConfiguration
-  {
-    $this->name = $name;
+    public function name(string $name): RouteConfiguration
+    {
+        $this->name = $name;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function middleware(string $middleware): RouteConfiguration
-  {
-    $this->middleware = $middleware;
+    public function middleware(string $middleware): RouteConfiguration
+    {
+        $this->middleware = $middleware;
 
-    return $this;
-  }
+        return $this;
+    }
 }
