@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-Hello world - post - <?= $post ?>
+Hello world - get - <?= $get ?> - post - <?php print_r($post) ?>
 </body>
 </html>

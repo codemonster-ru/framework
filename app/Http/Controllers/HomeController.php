@@ -6,13 +6,22 @@ use App\Core\View\View;
 
 class HomeController extends Controller
 {
-    public function index($get): string
+    public function index(): string
     {
-        return View::view('index', compact('get'));
+        return View::view('index');
     }
 
-    public function post($post): string
+    public function get($get): string
     {
-        return View::view('post', compact('post'));
+        return View::view('get', compact('get'));
+    }
+
+    public function post($get): string
+    {
+        $post = [
+            'id' => 2
+        ];
+
+        return View::view('post', ['get' => $get, 'post' => $post]);
     }
 }
