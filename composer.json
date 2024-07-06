@@ -4,7 +4,8 @@
       "App\\": "app"
     },
     "files": [
-      "routes/web.php"
+      "routes/web.php",
+      "app/Core/Helper/Debug.php"
     ]
   }
 }
