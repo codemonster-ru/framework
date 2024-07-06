@@ -18,10 +18,17 @@ class RouteDispatcher
 
     public function process(): void
     {
-        $this->saveRequestUri();
-        $this->setParamMap();
-        $this->makeRegexRequest();
-        $this->run();
+        if ($this->canRun()) {
+            $this->saveRequestUri();
+            $this->setParamMap();
+            $this->makeRegexRequest();
+            $this->run();
+        }
+    }
+
+    private function canRun(): bool
+    {
+        return $_SERVER['REQUEST_URI'] !== '/' || $this->routeConfiguration->route === '/';
     }
 
     private function saveRequestUri(): void
