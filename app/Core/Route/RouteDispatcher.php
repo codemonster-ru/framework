@@ -2,7 +2,10 @@
 
 namespace App\Core\Route;
 
+use App\Core\Request\Request;
 use JetBrains\PhpStorm\NoReturn;
+use ReflectionException;
+use ReflectionMethod;
 
 class RouteDispatcher
 {
@@ -16,6 +19,9 @@ class RouteDispatcher
         $this->routeConfiguration = $routeConfiguration;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function process(): void
     {
         if ($this->canRun()) {
@@ -35,10 +41,16 @@ class RouteDispatcher
     {
         if ($_SERVER['REQUEST_URI'] !== '/') {
             $this->requestUri = $this->clean($_SERVER['REQUEST_URI']);
+
+            if ($this->requestUri !== '' && str_contains($this->requestUri, '?')) {
+                $this->requestUri = stristr($this->requestUri, '?', true);
+                $this->requestUri = trim($this->requestUri, '/');
+            }
+
             $this->routeConfiguration->route = $this->clean($this->routeConfiguration->route);
         }
     }
-
+ 
     private function clean(string $string): string
     {
         return preg_replace('/(^\/)|(\/$)/', '', $string);
@@ -76,16 +88,28 @@ class RouteDispatcher
         $this->requestUri = str_replace('/', '\/', $this->requestUri);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     private function run(): void
     {
         if (preg_match("/$this->requestUri/", $this->routeConfiguration->route))
             $this->render();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     #[NoReturn] private function render(): void
     {
         $controller = $this->routeConfiguration->controller;
         $action = $this->routeConfiguration->action;
+
+        $method = new ReflectionMethod($controller, $action);
+        $params = $method->getParameters();
+        $params = array_column($params, 'name');
+
+        if (in_array('request', $params)) $this->paramRequestMap['request'] = new Request();
 
         print((new $controller)->$action(...$this->paramRequestMap));
 

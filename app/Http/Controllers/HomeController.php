@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Request\Request;
 use App\Core\View\View;
 
 class HomeController extends Controller
@@ -16,12 +17,8 @@ class HomeController extends Controller
         return View::view('get', compact('get'));
     }
 
-    public function post($get): string
+    public function post(Request $request, $get): string
     {
-        $post = [
-            'id' => 2
-        ];
-
-        return View::view('post', ['get' => $get, 'post' => $post]);
+        return View::view('post', ['get' => $get, 'post' => $request->post()]);
     }
 }
