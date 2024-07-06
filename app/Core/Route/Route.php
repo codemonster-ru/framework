@@ -7,14 +7,14 @@ class Route
     private static array $routesGet = [];
     private static array $routesPost = [];
 
-    public static function getRoutesPost(): array
-    {
-        return self::$routesPost;
-    }
-
     public static function getRoutesGet(): array
     {
         return self::$routesGet;
+    }
+
+    public static function getRoutesPost(): array
+    {
+        return self::$routesPost;
     }
 
     public static function get(string $route, array $controller): RouteConfiguration
