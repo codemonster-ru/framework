@@ -11,3 +11,12 @@ if (!function_exists('dd')) {
         exit;
     }
 }
+
+if (!function_exists('dump')) {
+    #[NoReturn] function dump($data = []): void
+    {
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+    }
+}
