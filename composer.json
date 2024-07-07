@@ -7,5 +7,8 @@
       "routes/web.php",
       "app/Core/Helper/Debug.php"
     ]
+  },
+  "require-dev": {
+    "jetbrains/phpstorm-attributes": "^1.1"
   }
 }
